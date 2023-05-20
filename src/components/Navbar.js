@@ -1,14 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
+  let location = useLocation();
+
+  React.useEffect(() => {}, [location]);
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top ">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/CirrusNotes">
+          <Link className="navbar-brand" to="/CirrusNotes">
             CirrusNotes
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -24,7 +28,11 @@ const Navbar = () => {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <Link
-                  className="nav-link active"
+                  className={`nav-link ${
+                    location.pathname === "/" ||
+                    location.pathname === "/CirrusNotes" ||
+                    location.pathname === "/home"
+                  }? "active":""`}
                   aria-current="page"
                   to="/home"
                 >
@@ -32,7 +40,12 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/about">
+                <Link
+                  className={`nav-link ${
+                    location.pathname === "/about"
+                  }? "active":""`}
+                  to="/about"
+                >
                   About
                 </Link>
               </li>
