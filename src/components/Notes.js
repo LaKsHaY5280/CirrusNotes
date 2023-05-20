@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useContext, useEffect, useRef, useState } from "react";
+=======
+import React, { useContext, useEffect } from "react";
+>>>>>>> 420bb89f9d337f6fef7586f3a0725aa7b5f88a36
 import noteContext from "../context/notes/noteContext";
 import Noteitem from "./Noteitem";
 
@@ -10,6 +14,7 @@ export default function Notes() {
     getNotes();
     // eslint-disable-next-line
   }, []);
+<<<<<<< HEAD
   const ref = useRef(null);
   const [note, setNote] = useState({ etitle: "", edescription: "", etag: "" });
 
@@ -30,6 +35,8 @@ export default function Notes() {
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value });
   };
+=======
+>>>>>>> 420bb89f9d337f6fef7586f3a0725aa7b5f88a36
 
   return (
     <div>
