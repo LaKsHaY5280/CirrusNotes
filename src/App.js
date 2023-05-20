@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import NoteState from "./context/notes/notesState";
 import About from "./components/About";
+import Alert from "./components/Alert";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Router>
         <div className="App">
           <Navbar />
+          <Alert />
           <Routes>
             <Route exact path="/" key="general" element={<Home />} />
             <Route exact path="/CirrusNotes" key="general" element={<Home />} />

@@ -15,5 +15,5 @@ app.use("/api/v1/notes", require("./routes/notes"));
 
 connectToMongo();
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`CirrusNotes app listening at http://localhost:${port}`);
 });
