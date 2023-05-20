@@ -55,7 +55,7 @@ const Addnote = () => {
             style={{ textAlign: "left" }}
             onClick={notesubmition}
           >
-            Submit
+            Add note
           </button>
         </div>
       </div>
