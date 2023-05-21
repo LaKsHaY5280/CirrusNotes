@@ -8,10 +8,10 @@ export default function Home() {
       <div style={{ marginTop: "70px", textAlign: "left" }}>
         <h1>Enter your notes here :- </h1>
       </div>
-      <Addnote />
+      <Addnote toggleAlert={toggleAlert} />
       <div style={{ marginTop: "50px", textAlign: "left" }}>
         <h1>Your notes are here :- </h1>
-        <Notes />
+        <Notes toggleAlert={toggleAlert} />
       </div>
     </div>
   );

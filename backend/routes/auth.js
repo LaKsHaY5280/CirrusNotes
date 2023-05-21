@@ -19,15 +19,18 @@ router.post(
     }),
   ],
   async (req, res) => {
+    const success = false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      success = false;
+      return res.status(400).json({ success, errors: errors.array() });
     }
 
     // Check if email already exists
     const existingUser = await User.findOne({ email: req.body.email });
     if (existingUser) {
-      return res.status(400).json({ error: "Email already exists" });
+      success = false;
+      return res.status(400).json({ success, error: "Email already exists" });
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -46,9 +49,9 @@ router.post(
         },
       };
       const authtoken = jwt.sign(data, secret);
+      success = true;
+      res.json({ success, authtoken });
       console.log(authtoken);
-
-      res.json({ authtoken });
     } catch (error) {
       res.status(500).json({ error: "An error occurred" });
     }
@@ -63,6 +66,7 @@ router.post(
     body("password", "Password cannot be blank").exists(),
   ],
   async (req, res) => {
+    let success = false;
     // If there are errors, return Bad request and the errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -73,6 +77,7 @@ router.post(
     try {
       let user = await User.findOne({ email });
       if (!user) {
+        success = false;
         return res
           .status(400)
           .json({ error: "Please try to login with correct credentials" });
@@ -91,7 +96,8 @@ router.post(
         },
       };
       const authtoken = jwt.sign(data, secret);
-      res.json({ authtoken });
+      success = true;
+      res.json({ success, authtoken });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Server Error");
