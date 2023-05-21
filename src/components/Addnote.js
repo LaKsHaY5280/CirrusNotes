@@ -14,6 +14,7 @@ const Addnote = () => {
   const notesubmition = (e) => {
     e.preventDefault();
     addNote(note.title, note.description, note.tag);
+    setNote({ title: "", description: "", tag: "" });
   };
 
   const onChange = (e) => {
@@ -33,7 +34,10 @@ const Addnote = () => {
             id="title"
             name="title"
             placeholder="The Title"
+            value={note.title}
             onChange={onChange}
+            minLength={3}
+            required
           />
         </div>
         <div className="mb-3">
@@ -45,8 +49,24 @@ const Addnote = () => {
             id="description"
             name="description"
             rows="3"
+            value={note.description}
             onChange={onChange}
+            minLength={5}
+            required
           ></textarea>
+        </div>
+        <div className="mb-3 ">
+          <label htmlFor="yitle" className="form-label">
+            Tags
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="tag"
+            name="tag"
+            placeholder="Tags"
+            onChange={onChange}
+          />
         </div>
         <div>
           <button
@@ -54,6 +74,7 @@ const Addnote = () => {
             className="btn btn-dark"
             style={{ textAlign: "left" }}
             onClick={notesubmition}
+            disabled={note.title.length < 5 || note.description.length < 5}
           >
             Add note
           </button>

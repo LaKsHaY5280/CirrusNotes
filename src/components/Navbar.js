@@ -57,9 +57,27 @@ const Navbar = () => {
                 placeholder="Search"
                 aria-label="Search"
               />
-              <button className="btn btn-outline-info" type="submit">
+              <button
+                className="btn btn-outline-info"
+                type="submit"
+                style={{ marginRight: "3%" }}
+              >
                 Search
               </button>
+              <Link
+                type="button"
+                className="btn btn-outline-secondary mx-2"
+                to="/login"
+              >
+                Login
+              </Link>
+              <Link
+                type="button"
+                className="btn btn-outline-secondary"
+                to="/signup"
+              >
+                Signup
+              </Link>
             </form>
           </div>
         </div>

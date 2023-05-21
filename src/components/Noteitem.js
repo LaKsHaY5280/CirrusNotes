@@ -30,12 +30,12 @@ const Noteitem = (props) => {
           </div>
           <p className="card-text my-2">
             {note.description}
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque,
-            debitis repudiandae. Odit tenetur similique ipsam rerum officia
-            vitae dolores sequi pariatur voluptatibus laboriosam modi libero
-            facere blanditiis repudiandae accusamus cupiditate, necessitatibus
-            exercitationem error sed.
           </p>
+          {note.tag ? (
+            <div className="card-footer bg-transparent border-success">
+              {note.tag}
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

@@ -4,18 +4,25 @@ import Noteitem from "./Noteitem";
 
 export default function Notes() {
   const notescontext = useContext(noteContext);
-  const { notes, getNotes } = notescontext;
+  const { notes, getNotes, editNote } = notescontext;
 
   useEffect(() => {
     getNotes();
     // eslint-disable-next-line
   }, []);
   const ref = useRef(null);
-  const [note, setNote] = useState({ etitle: "", edescription: "", etag: "" });
+  const refClose = useRef(null);
+  const [note, setNote] = useState({
+    id: "",
+    etitle: "",
+    edescription: "",
+    etag: "",
+  });
 
   const updateNote = (currentNote) => {
     ref.current.click();
     setNote({
+      id: currentNote._id,
       etitle: currentNote.title,
       edescription: currentNote.description,
       etag: currentNote.tag,
@@ -23,8 +30,8 @@ export default function Notes() {
   };
 
   const handleClick = (e) => {
-    console.log("Updating the note...", note);
-    e.preventDefault();
+    editNote(note.id, note.etitle, note.edescription, note.etag);
+    refClose.current.click();
   };
 
   const onChange = (e) => {
@@ -76,6 +83,8 @@ export default function Notes() {
                     value={note.etitle}
                     aria-describedby="emailHelp"
                     onChange={onChange}
+                    minLength={3}
+                    required
                   />
                 </div>
                 <div className="mb-3">
@@ -89,6 +98,8 @@ export default function Notes() {
                     name="edescription"
                     value={note.edescription}
                     onChange={onChange}
+                    minLength={5}
+                    required
                   />
                 </div>
                 <div className="mb-3">
@@ -108,9 +119,13 @@ export default function Notes() {
             </div>
             <div className="modal-footer">
               <button
+                ref={refClose}
                 type="button"
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"
+                disabled={
+                  note.etitle.length < 3 || note.edescription.length < 5
+                }
               >
                 Close
               </button>
@@ -126,10 +141,16 @@ export default function Notes() {
         </div>
       </div>
       <div className="row my-3">
+        {" "}
+        <div className="container mx-2">
+          {notes.length === 0 && "No notes to display"}
+        </div>
         {Array.isArray(notes) ? (
           notes.map((note) => {
             // Render the note component here
-            return <Noteitem note={note}updateNote={updateNote} key={note._id} />;
+            return (
+              <Noteitem note={note} updateNote={updateNote} key={note._id} />
+            );
           })
         ) : (
           <p>No notes found</p>

@@ -19,7 +19,6 @@ const NoteState = (props) => {
       },
     });
     let json = await response.json();
-    console.log("Getting a new note" + json);
     setNotes(json);
   };
 
@@ -36,19 +35,7 @@ const NoteState = (props) => {
       body: JSON.stringify({ title, description, tag }),
     });
 
-    const json = await response.json();
-    console.log("Adding a new note" + json);
-
-    // Create a new note object from the response
-    const note = {
-      _id: json._id,
-      user: json.user,
-      title: json.title,
-      description: json.description,
-      tag: json.tag,
-      date: json.date,
-      __v: json.__v,
-    };
+    const note = await response.json();
 
     // Update the notes state by adding the new note to the existing notes array
     setNotes([...notes, note]);
@@ -57,7 +44,7 @@ const NoteState = (props) => {
   //Edit a note
   const editNote = async (id, title, description, tag) => {
     const response = await fetch(`${host}/api/v1/notes/updatenote/${id}`, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         "auth-token":
@@ -66,17 +53,19 @@ const NoteState = (props) => {
       body: JSON.stringify({ title, description, tag }),
     });
 
+    let newNotes = JSON.parse(JSON.stringify(notes));
     // Logic to edit in client
-    for (let index = 0; index < notes.length; index++) {
-      const element = notes[index];
+    for (let index = 0; index < newNotes.length; index++) {
+      const element = newNotes[index];
       if (element._id === id) {
-        element.title = title;
-        element.description = description;
-        element.tag = tag;
+        newNotes[index].title = title;
+        newNotes[index].description = description;
+        newNotes[index].tag = tag;
+        break;
       }
     }
+    setNotes(newNotes);
     const json = response.json();
-    console.log(json);
   };
 
   // Delete a note
@@ -91,7 +80,6 @@ const NoteState = (props) => {
       },
     });
     const json = response.json();
-    console.log(json);
     // Update the notes state by filtering out the deleted note
     const updatedNotes = notes.filter((note) => note._id !== id);
     setNotes(updatedNotes);
