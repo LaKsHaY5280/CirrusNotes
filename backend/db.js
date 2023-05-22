@@ -2,13 +2,12 @@ const mongoose = require("mongoose");
 
 const connectToMongo = async () => {
   try {
-    await mongoose.connect(
-      "mongodb://127.0.0.1:27017/CirrusNotes?directConnection=true",
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }
-    );
+    
+  const dbadd = process.env.REACT_APP_dbaddress;
+  await mongoose.connect(dbadd, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
     console.log("Connected to MongoDB");
   } catch (error) {
     console.error("Error connecting to MongoDB", error);
