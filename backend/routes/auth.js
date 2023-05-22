@@ -19,7 +19,7 @@ router.post(
     }),
   ],
   async (req, res) => {
-    const success = false;
+    let success = false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       success = false;

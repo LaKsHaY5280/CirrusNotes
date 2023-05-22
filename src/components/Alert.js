@@ -1,13 +1,30 @@
 import React from "react";
 
 export const Alert = (props) => {
+  if (!props.alert) {
+    return (
+      <div className="mt-5 mb-0 " style={{ zIndex: 9999 }}>
+        <div
+          className={`alert `}
+          role="alert"
+          style={{
+            visibility: "hidden",
+          }}
+        >
+          htrf
+        </div>
+      </div> 
+    );
+  }
   return (
-    <div className="my-5">
-      <div className="alert alert-primary" role="alert">
-        {props.message}rdghdtrgdrg
+    props.alert && (
+      <div className="mt-5 mb-0  " style={{ zIndex: 9999 }}>
+        <div className={`alert alert-${props.alert.type}`} role="alert">
+          {props.alert.type}: {props.alert.msg}fdrgfdrs
+        </div>
       </div>
-    </div>
+    )
   );
 };
 
-export default Alert;
+export default Alert; 

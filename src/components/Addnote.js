@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import noteContext from "../context/notes/noteContext";
 
-const Addnote = () => {
+const Addnote = (props) => {
   const notescontext = useContext(noteContext);
   const { addNote } = notescontext;
 
@@ -15,6 +15,8 @@ const Addnote = () => {
     e.preventDefault();
     addNote(note.title, note.description, note.tag);
     setNote({ title: "", description: "", tag: "" });
+    
+    props.toggleAlert("success", "Note added");
   };
 
   const onChange = (e) => {
@@ -64,9 +66,10 @@ const Addnote = () => {
             className="form-control"
             id="tag"
             name="tag"
+            value={note.tag}
             placeholder="Tags"
             onChange={onChange}
-          />
+          /> 
         </div>
         <div>
           <button

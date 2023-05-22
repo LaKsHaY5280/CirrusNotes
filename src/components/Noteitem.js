@@ -21,16 +21,15 @@ const Noteitem = (props) => {
                 }}
               ></i>
               <i
-                className="fa-solid fa-trash fa-lg  mx-3"
+                className="fa-solid fa-trash fa-lg  mx-3" 
                 onClick={() => {
+                  props.toggleAlert("success", "Note deleted");
                   deleteNote(note._id);
                 }}
               ></i>
             </div>
           </div>
-          <p className="card-text my-2">
-            {note.description}
-          </p>
+          <p className="card-text my-2">{note.description}</p>
           {note.tag ? (
             <div className="card-footer bg-transparent border-success">
               {note.tag}

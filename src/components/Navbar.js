@@ -1,13 +1,19 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   let location = useLocation();
+  const navigate = useNavigate();
 
   React.useEffect(() => {}, [location]);
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
-    <div>
+    <div> 
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top ">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/CirrusNotes">
@@ -39,16 +45,6 @@ const Navbar = () => {
                   Home
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link
-                  className={`nav-link ${
-                    location.pathname === "/about"
-                  }? "active":""`}
-                  to="/about"
-                >
-                  About
-                </Link>
-              </li>
             </ul>
             <form className="d-flex" role="search">
               <input
@@ -63,22 +59,35 @@ const Navbar = () => {
                 style={{ marginRight: "3%" }}
               >
                 Search
-              </button>
-              <Link
-                type="button"
-                className="btn btn-outline-secondary mx-2"
-                to="/login"
-              >
-                Login
-              </Link>
-              <Link
-                type="button"
-                className="btn btn-outline-secondary"
-                to="/signup"
-              >
-                Signup
-              </Link>
+              </button>{" "}
             </form>
+            {localStorage.getItem("token") ? (
+              <form className=" my-2">
+                <button
+                  className="btn btn-outline-secondary"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </form>
+            ) : (
+              <form className="d-flex">
+                <Link
+                  type="button"
+                  className="btn btn-outline-secondary mx-2"
+                  to="/login"
+                >
+                  Login
+                </Link>
+                <Link
+                  type="button"
+                  className="btn btn-outline-secondary"
+                  to="/signup"
+                >
+                  Signup
+                </Link>
+              </form>
+            )}
           </div>
         </div>
       </nav>

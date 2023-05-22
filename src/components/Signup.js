@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Signup = () => {
+const Signup = (props) => {
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
     password: "",
-    cpassword: "",
   });
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, email, password } = credentials;
-
+ 
     try {
       const response = await fetch(
         "http://localhost:5000/api/v1/auth/createuser",
@@ -29,18 +28,27 @@ const Signup = () => {
         }
       );
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
       const json = await response.json();
-      console.log(json);
       if (json.success) {
         // Save the auth token and redirect
         localStorage.setItem("token", json.authtoken);
+        props.toggleAlert("success", "Signup complete");
         navigate("/");
+      } else if (
+        response.status === 400 &&
+        json.error === "Email already exists"
+      ) {
+        props.toggleAlert("warning", "Email already exists");
+      } else if (json.errors) {
+        // Handle server-side validation errors
+        props.toggleAlert("warning", "Invalid credentials");
+        console.error("Server-side validation errors:", json.errors);
+        alert(
+          "Please correct the following errors:\n" +
+            json.errors.map((e) => e.msg).join("\n")
+        );
       } else {
-        alert("Invalid credentials");
+        props.toggleAlert("warning", "Invalid credentials");
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -51,8 +59,10 @@ const Signup = () => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
+
+
   return (
-    <div>
+    <div className="container d-flex ">
       <div className="container ">
         <div className="container d-flex my-5">
           <h1>Signup :</h1>
@@ -65,6 +75,7 @@ const Signup = () => {
               id="name"
               name="name"
               placeholder="com"
+              minLength="3"
               onChange={onChange}
             />
             <label htmlFor="floatingInput">Name</label>{" "}
@@ -76,6 +87,7 @@ const Signup = () => {
               id="email"
               name="email"
               placeholder="name@example.com"
+              minLength="5"
               onChange={onChange}
             />
             <label htmlFor="floatingInput">Email address</label>
