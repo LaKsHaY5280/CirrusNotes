@@ -51,7 +51,6 @@ router.post(
       const authtoken = jwt.sign(data, secret);
       success = true;
       res.json({ success, authtoken });
-      console.log(authtoken);
     } catch (error) {
       res.status(500).json({ error: "An error occurred" });
     }
