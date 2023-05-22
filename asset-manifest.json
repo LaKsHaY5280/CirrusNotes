@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/CirrusNotes/static/css/main.598a6723.css",
+    "main.js": "/CirrusNotes/static/js/main.68f49fa4.js",
+    "static/js/787.1b95cebb.chunk.js": "/CirrusNotes/static/js/787.1b95cebb.chunk.js",
+    "index.html": "/CirrusNotes/index.html",
+    "main.598a6723.css.map": "/CirrusNotes/static/css/main.598a6723.css.map",
+    "main.68f49fa4.js.map": "/CirrusNotes/static/js/main.68f49fa4.js.map",
+    "787.1b95cebb.chunk.js.map": "/CirrusNotes/static/js/787.1b95cebb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.598a6723.css",
+    "static/js/main.68f49fa4.js"
+  ]
+}
