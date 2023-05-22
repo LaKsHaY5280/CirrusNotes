@@ -20,7 +20,7 @@ export const Alert = (props) => {
     props.alert && (
       <div className="mt-5 mb-0  " style={{ zIndex: 9999 }}>
         <div className={`alert alert-${props.alert.type}`} role="alert">
-          {props.alert.type}: {props.alert.msg}fdrgfdrs
+          {props.alert.type}: {props.alert.msg}
         </div>
       </div>
     )
